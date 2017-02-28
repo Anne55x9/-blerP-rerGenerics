@@ -42,6 +42,40 @@ namespace ÆblerPærerGenerics
             }
         }
 
+        private class sortNavnAlfabeticalgHelper: IComparer<Æbler>
+        {
+            public int Compare(Æbler x, Æbler y)
+            {
+                int a = String.Compare(x.Navn, y.Navn);
+                return a;
+            }
+        }
+
+        private class sortbyPrisNavnLagerAscendingHelper: IComparer<Æbler>
+        {
+            public int Compare(Æbler x, Æbler y)
+            {
+                
+                if (x.Pris > y.Pris)
+                {
+                    return -1;
+                }
+                else if (x.Pris == y.Pris)
+                {
+                    int a = String.Compare(x.Navn, y.Navn);
+                        if (a == 0)
+                        {
+                            return y.Lager - x.Lager;
+                        }
+
+                    return a;
+                }
+                else
+                    return 1;
+            }
+
+        }
+
 
         /// <summary>
         /// I CompareTo metoden afhænger rækkefølgen i listen af hvorledes krodillenæbbet vender. 
@@ -143,7 +177,15 @@ namespace ÆblerPærerGenerics
             return (IComparer<Æbler>)new sortLagerAscendingHelper();
         }
 
+        public static IComparer<Æbler> sortNavn()
+        {
+            return (IComparer < Æbler >) new sortNavnAlfabeticalgHelper();
+        }
 
+        public static IComparer<Æbler> sortPrisNavnLager()
+        {
+            return (IComparer<Æbler>)new sortbyPrisNavnLagerAscendingHelper();
+        }
 
         //// Override af Equals metoden som med if statement som tester på typen der smmelignes med. Hvis æble true, hvis null eller andet er det false.
 
@@ -201,3 +243,4 @@ namespace ÆblerPærerGenerics
        
     }
 }
+

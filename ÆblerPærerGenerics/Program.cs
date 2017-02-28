@@ -57,6 +57,22 @@ namespace ÆblerPærerGenerics
                 Console.WriteLine(item.ToString());
             }
 
+            Console.WriteLine("Efter sortering på navn:");
+
+            æbleBeholdning.Sort(Æbler.sortNavn());
+            foreach (var item in æbleBeholdning)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
+            Console.WriteLine("Efter sortering med ascending pris, så navn, så lager:");
+
+            æbleBeholdning.Sort(Æbler.sortPrisNavnLager());
+            foreach (var item in æbleBeholdning)
+            {
+                Console.WriteLine(item.ToString());
+            }
+
 
             //var pærerBeholdning = new List<Pærer>();
             //pærerBeholdning.Add(new Pærer() { Navn = "Conference", Lager = 75M, Pris = 5M });
