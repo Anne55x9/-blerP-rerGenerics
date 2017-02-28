@@ -8,11 +8,40 @@ using System.Collections;
 namespace ÆblerPærerGenerics
 {
     // fodre interface da den er generisk. Generic<T> Lists. 
-    public class Æbler :IComparable<Æbler>
+    public class Æbler 
+        //:IComparable<Æbler>
     {
         public string Navn { get; set; }
         public decimal Pris { get; set; }
         public int Lager { get; set; }
+
+
+        private class sortLagerDescendingHelper : IComparer<Æbler>
+        {
+            public int Compare(Æbler x, Æbler y)
+            {
+                if (x.Lager > y.Lager)
+                    return 1;
+                else if (x.Lager == y.Lager)
+                    return 0;
+                else
+                    return -1;
+            }
+        }
+
+        private class sortLagerAscendingHelper : IComparer<Æbler>
+        {
+            public int Compare(Æbler x, Æbler y)
+            {
+                if (x.Lager < y.Lager)
+                    return 1;
+                else if (x.Lager == y.Lager)
+                    return 0;
+                else
+                    return -1;
+            }
+        }
+
 
         /// <summary>
         /// I CompareTo metoden afhænger rækkefølgen i listen af hvorledes krodillenæbbet vender. 
@@ -77,46 +106,42 @@ namespace ÆblerPærerGenerics
 
         ////Override af CompareTo metoden som sorterer først på lager beholdning, dernæst navn og pris. 
 
-        public int CompareTo(Æbler other)
+        //public int CompareTo(Æbler other)
+        //{
+        //    int a = String.Compare(this.Navn, other.Navn);
+
+        //    if (this.Lager < other.Lager)
+        //        return -1;
+        //    else if (this.Lager == other.Lager)
+        //    {
+        //        int prisSammeligning = Decimal.Compare(this.Pris, other.Pris);
+        //        if (a == 0)
+        //        {
+        //            return prisSammeligning;
+        //        }
+
+        //        return a;
+        //    }
+        //    else
+        //        return 1;
+
+        //}
+
+        //Privat klasse som implementerer Icomparer interfacet af typen æbler. Interfacet implementerer metoden Compare.
+
+
+        //Static metode som returnere en ny instans fra sortLagerDescendingHelper klasssen.  
+        //Den private klasse implementerer Icomparable<æbler> derfor kan vi godt det her.
+
+        public static IComparer<Æbler> sortLagerDescending()
         {
-            int a = String.Compare(this.Navn, other.Navn);
-
-            if (this.Lager < other.Lager)
-                return -1;
-            else if (this.Lager == other.Lager)
-            {
-                int prisSammeligning = Decimal.Compare(this.Pris, other.Pris);
-                if (a == 0)
-                {
-                    return prisSammeligning;
-                }
-
-                return a;
-            }
-            else
-                return 1;
-               
+            return (IComparer<Æbler>) new sortLagerDescendingHelper();
         }
 
-        //private class sortLagerDescendingHelper : IComparer<Æbler>
-        //{
-        //    public int Compare(Æbler x, Æbler y)
-        //    {
-        //        if (x.Lager > y.Lager)
-        //            return 1;
-        //        else if (x.Lager == y.Lager)
-        //            return 0;
-        //        else
-        //            return -1;
-        //    }
-        //}
-
-        //den private klasse implementerer Icomparable<æbler> derfor kan vi godt det her.
-
-        //public static IComparer<Æbler> sortLagerDescending()
-        //{
-        //    return new sortLagerDescendingHelper();
-        //}
+        public static IComparer<Æbler> sortLagerAscending()
+        {
+            return (IComparer<Æbler>)new sortLagerAscendingHelper();
+        }
 
 
 
@@ -173,6 +198,6 @@ namespace ÆblerPærerGenerics
             return $"Navn {this.Navn} + Pris {this.Pris} + Lager {this.Lager}";
         }
 
-      
+       
     }
 }
