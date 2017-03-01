@@ -10,7 +10,7 @@ namespace ÆblerPærerGenerics
     {
         static void Main(string[] args)
         {
-            //Varebeholdning af Æbler
+            ////Varebeholdning af Æbler
 
             var æbleBeholdning = new List<Æbler>();
             æbleBeholdning.Add(new Æbler() { Navn = "Ingrid Marie", Lager = 50, Pris = 20.0M });
@@ -22,65 +22,165 @@ namespace ÆblerPærerGenerics
             æbleBeholdning.Add(new Æbler() { Navn = "Guldborg", Lager = 150, Pris = 5.0M });
             æbleBeholdning.Add(new Æbler() { Navn = "Guldborg", Lager = 60, Pris = 5.0M });
 
-            Console.WriteLine("Default sortering på æblerne:");
-
-            foreach (var item in æbleBeholdning)
-            {
-                Console.WriteLine(item.ToString());
-            }
-
-
-            //Console.WriteLine("Efter sortering på pris.");
-
-            //æbleBeholdning.Sort();
+            //Console.WriteLine("Default sortering på æblerne:");
 
             //foreach (var item in æbleBeholdning)
             //{
             //    Console.WriteLine(item.ToString());
             //}
 
-            Console.WriteLine("Efter sortering på lager(Descending):");
 
-            æbleBeholdning.Sort(Æbler.sortLagerDescending());
+            ////Console.WriteLine("Efter sortering på pris.");
 
-            foreach (var item in æbleBeholdning)
+            ////æbleBeholdning.Sort();
+
+            ////foreach (var item in æbleBeholdning)
+            ////{
+            ////    Console.WriteLine(item.ToString());
+            ////}
+
+            //Console.WriteLine("Efter sortering på lager(Descending):");
+
+            //æbleBeholdning.Sort(Æbler.sortLagerDescending());
+
+            //foreach (var item in æbleBeholdning)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+
+            //Console.WriteLine("Efter sortering på lager (Ascending):");
+
+            //æbleBeholdning.Sort(Æbler.sortLagerAscending());
+
+            //foreach (var item in æbleBeholdning)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+
+            //Console.WriteLine("Efter sortering på navn:");
+
+            //æbleBeholdning.Sort(Æbler.sortNavn());
+            //foreach (var item in æbleBeholdning)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+
+            ////Æble predicate delegationer:
+
+            //Console.WriteLine("Efter sortering med ascending pris, så navn, så lager:");
+
+            //æbleBeholdning.Sort(Æbler.sortPrisNavnLager());
+            //foreach (var item in æbleBeholdning)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+
+            //var æbleFind = æbleBeholdning.Find(x => x.Navn == ("Guldborg"));
+
+            //Console.WriteLine($"Test: {æbleFind.Pris}");
+
+            //var æbleLagerSlet = æbleBeholdning.RemoveAll(x => x.Pris > 20);
+
+            //Console.WriteLine($"Test om slet:{æbleLagerSlet}");
+
+          
+
+
+            var pærerBeholdning = new List<Pærer>();
+            pærerBeholdning.Add(new Pærer() { Navn = "Conference", Lager = 75M, Pris = 5M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Concorde", Lager = 33M, Pris = 12M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Glorød Williams", Lager = 10, Pris = 15M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Noveau Poiteau", Lager = 5M, Pris = 22M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Tongre", Lager = 7M, Pris = 21M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Tongre", Lager = 7M, Pris = 21M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Conference", Lager = 75M, Pris = 5M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Glorød Williams", Lager = 10, Pris = 15M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Glorød Williams", Lager = 20, Pris = 15M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Glorød Williams", Lager = 20, Pris = 20M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Glorød Williams", Lager = 17, Pris = 15M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Noveau Poiteau", Lager = 5M, Pris = 22M });
+            pærerBeholdning.Add(new Pærer() { Navn = "Concorde", Lager = 33M, Pris = 12M });
+
+            //Delegate af typen predicate med pærer:
+            Console.WriteLine("1. Test med lager nummer = 10;");
+
+            var minListe = pærerBeholdning.FindAll(x => x.Lager == 10);
+
+            foreach (var item in minListe)
+            {
+                Console.WriteLine(item.Navn);
+            }
+
+            Console.WriteLine("2. Test med navn på Concorde");
+
+            var minListe1 = pærerBeholdning.FindAll(x => x.Navn.Equals("Concorde"));
+
+            foreach (var item in minListe1)
+            {
+                Console.WriteLine(item.Pris);
+            }
+
+            Console.WriteLine("3. Test med elementer i listen som koster over 15 kr");
+
+            var PærerOver15kr = pærerBeholdning.FindAll(x => x.Pris > 15);
+
+            foreach (var item in PærerOver15kr)
             {
                 Console.WriteLine(item.ToString());
             }
 
-            Console.WriteLine("Efter sortering på lager (Ascending):");
+            Console.WriteLine("Slut på test 3.");
 
-            æbleBeholdning.Sort(Æbler.sortLagerAscending());
+            Console.WriteLine("Test 4 søg på navnet Glorød Williams");
 
-            foreach (var item in æbleBeholdning)
+            var pærerListeNavnGW = pærerBeholdning.FindAll(x => x.Navn.Equals("Glorød Williams"));
+
+            foreach (var item in pærerListeNavnGW)
             {
                 Console.WriteLine(item.ToString());
             }
 
-            Console.WriteLine("Efter sortering på navn:");
+            Console.WriteLine("Test 4 slut.");
 
-            æbleBeholdning.Sort(Æbler.sortNavn());
-            foreach (var item in æbleBeholdning)
+            Console.WriteLine("Test 5 find første element i listen hvor lager er 20 ");
+
+            var elementLagerlig20 = pærerBeholdning.Find(x => x.Lager == 20);
+
+            Console.WriteLine(elementLagerlig20.Navn);
+
+            Console.WriteLine("Slut på test 5");
+
+            Console.WriteLine("Test 6 find første element som hedder Glorød Williams");
+
+            var minListe2 = pærerBeholdning.Find(x => x.Navn == ("Glorød Williams"));
+
+            Console.WriteLine(minListe2.Pris);
+
+            Console.WriteLine("Test 6 slut");
+
+            Console.WriteLine("Test 7 find første element hvori re indgår");
+
+            var reInhold = pærerBeholdning.Find(x => x.Navn.Contains("re"));
+
+            Console.WriteLine(reInhold.Navn);
+
+            Console.WriteLine("Test 7 slut");
+
+            Console.WriteLine("Test 8 slet elementer i listen hvor lager * pris <= 250");
+
+            var sletListe = pærerBeholdning.RemoveAll(x => x.Lager * x.Pris <= 250);
+
+            Console.WriteLine(sletListe);
+
+            var sletListe2 = pærerBeholdning.FindAll(x => x.Lager * x.Pris > 250);
+
+
+            foreach (var item in sletListe2)
             {
                 Console.WriteLine(item.ToString());
             }
 
-            Console.WriteLine("Efter sortering med ascending pris, så navn, så lager:");
-
-            æbleBeholdning.Sort(Æbler.sortPrisNavnLager());
-            foreach (var item in æbleBeholdning)
-            {
-                Console.WriteLine(item.ToString());
-            }
-
-
-            //var pærerBeholdning = new List<Pærer>();
-            //pærerBeholdning.Add(new Pærer() { Navn = "Conference", Lager = 75M, Pris = 5M });
-            //pærerBeholdning.Add(new Pærer() { Navn = "Concorde", Lager = 33M, Pris = 12M });
-            //pærerBeholdning.Add(new Pærer() { Navn = "Glorød Williams", Lager = 10, Pris = 15M });
-            //pærerBeholdning.Add(new Pærer() { Navn = "Noveau Poiteau", Lager = 5M, Pris = 22M });
-            //pærerBeholdning.Add(new Pærer() { Navn = "Tongre", Lager = 7M, Pris = 21M });
-
+            Console.WriteLine("Test 8 slut");
 
             //decimal værdiTotalÆbler = FrugtHandler.CalculateSumÆbler(æbleBeholdning);
             //Console.WriteLine("Så meget er æblebeholdningen værd : " + værdiTotalÆbler);
